@@ -1,0 +1,9 @@
+package com.nexswap.entity;
+
+public enum BookCondition {
+    NEW,
+    LIKE_NEW,
+    GOOD,
+    FAIR,
+    POOR
+}
