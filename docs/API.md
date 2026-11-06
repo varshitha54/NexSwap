@@ -99,8 +99,8 @@ Content-Type: application/json
 ```json
 {
   "name": "Aarav Sharma",
-  "email": "aarav@university.edu",
-  "password": "correct-horse-battery",
+  "email": "student@example.com",
+  "password": "ExamplePassword123!",
   "collegeName": "North Campus University",
   "phone": "+91 98765 43210"
 }
@@ -117,7 +117,7 @@ phone optional (7–30 digits/`+()-\s`). Returns `201 Created`:
   "user": {
     "id": 1,
     "name": "Aarav Sharma",
-    "email": "aarav@university.edu",
+    "email": "student@example.com",
     "collegeName": "North Campus University",
     "phone": "+91 98765 43210",
     "role": "STUDENT",
@@ -134,7 +134,7 @@ Content-Type: application/json
 ```
 
 ```json
-{ "email": "aarav@university.edu", "password": "correct-horse-battery" }
+{ "email": "student@example.com", "password": "ExamplePassword123!" }
 ```
 
 Returns `200 OK` with the same `AuthResponse` shape. Invalid credentials return `401`
@@ -184,7 +184,7 @@ Authorization: Bearer <token>
 {
   "id": 1,
   "name": "Aarav Sharma",
-  "email": "aarav@university.edu",
+  "email": "student@example.com",
   "collegeName": "North Campus University",
   "phone": "+91 98765 43210",
   "role": "STUDENT",
@@ -464,7 +464,7 @@ returns `204 No Content`. Only the owner or an admin may delete. Open requests a
   "requester": {
     "id": 1,
     "name": "Aarav Sharma",
-    "email": "aarav@university.edu",
+    "email": "student@example.com",
     "phone": "+91 98765 43210",
     "collegeName": "North Campus University"
   },
@@ -636,7 +636,7 @@ Authorization: Bearer <token>
   {
     "id": 1,
     "name": "Aarav Sharma",
-    "email": "aarav@university.edu",
+    "email": "student@example.com",
     "collegeName": "North Campus University",
     "phone": "+91 98765 43210",
     "role": "STUDENT",
