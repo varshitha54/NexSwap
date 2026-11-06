@@ -136,6 +136,10 @@ export default function MyListingsPage() {
             <span>Exchanged</span>
             <strong>{counts.EXCHANGED || 0}</strong>
           </div>
+          <div>
+            <span>Hidden</span>
+            <strong>{counts.HIDDEN || 0}</strong>
+          </div>
         </div>
 
         <div className="tab-row" role="tablist" aria-label="Filter listings">

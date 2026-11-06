@@ -11,6 +11,7 @@ import com.nexswap.repository.UserRepository;
 import com.nexswap.security.JwtService;
 import com.nexswap.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -44,7 +45,13 @@ public class AuthService {
                 .phone(normalizeOptional(request.phone()))
                 .role(Role.STUDENT)
                 .build();
-        userRepository.save(user);
+        try {
+            userRepository.saveAndFlush(user);
+        } catch (DataIntegrityViolationException race) {
+            // Two registrations with the same email can pass the existence check; the
+            // unique index decides. Surface a friendly message instead of a generic 409.
+            throw BusinessException.conflict("An account with this email already exists.");
+        }
         return buildAuthResponse(user);
     }
 

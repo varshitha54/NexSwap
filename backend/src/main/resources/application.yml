@@ -55,7 +55,6 @@ app:
     name: ${ADMIN_NAME:}
     email: ${ADMIN_EMAIL:}
     password: ${ADMIN_PASSWORD:}
-  seed-demo-data: ${SEED_DEMO_DATA:false}
 
 logging:
   level:

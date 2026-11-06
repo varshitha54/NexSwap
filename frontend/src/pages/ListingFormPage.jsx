@@ -331,7 +331,6 @@ export default function ListingFormPage() {
                   </label>
                 ))}
               </div>
-              {errors.listingType && <small className="field__error">{errors.listingType}</small>}
             </div>
 
             <div className="field">

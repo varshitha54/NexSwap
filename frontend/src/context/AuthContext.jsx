@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { authApi, userApi } from '../api'
 import { TOKEN_KEY } from '../api/client'
+import { useToast } from './ToastContext'
 
 const USER_KEY = 'nexswap_user'
 const AuthContext = createContext(null)
@@ -15,6 +16,7 @@ function readStoredUser() {
 }
 
 export function AuthProvider({ children }) {
+  const toast = useToast()
   const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY))
   const [user, setUser] = useState(readStoredUser)
   const [initializing, setInitializing] = useState(Boolean(localStorage.getItem(TOKEN_KEY)))
@@ -40,10 +42,17 @@ export function AuthProvider({ children }) {
   }, [])
 
   useEffect(() => {
-    const handleUnauthorized = () => clearSession()
+    const handleUnauthorized = () => {
+      // Only notify when a session was actually active; otherwise the event is
+      // just the initial profile check failing for a stored stale token.
+      if (localStorage.getItem(TOKEN_KEY)) {
+        clearSession()
+        toast.error('Your session has expired. Please sign in again.')
+      }
+    }
     window.addEventListener('nexswap:unauthorized', handleUnauthorized)
     return () => window.removeEventListener('nexswap:unauthorized', handleUnauthorized)
-  }, [clearSession])
+  }, [clearSession, toast])
 
   useEffect(() => {
     let active = true

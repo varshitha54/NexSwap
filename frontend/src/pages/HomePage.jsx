@@ -62,24 +62,6 @@ const values = [
   },
 ]
 
-const decorativeBooks = [
-  {
-    title: 'Design & Ideas',
-    author: 'Studio Collection',
-    category: 'ARTS_DESIGN',
-  },
-  {
-    title: 'Data Structures',
-    author: 'Campus Edition',
-    category: 'COMPUTER_SCIENCE',
-  },
-  {
-    title: 'Modern Fiction',
-    author: 'Reading Circle',
-    category: 'LITERATURE',
-  },
-]
-
 export default function HomePage() {
   const { isAuthenticated } = useAuth()
   const [featured, setFeatured] = useState([])
@@ -111,7 +93,8 @@ export default function HomePage() {
     }
   }, [])
 
-  const heroBooks = featured.length >= 3 ? featured.slice(0, 3) : decorativeBooks
+  const heroBooks = featured.slice(0, 3)
+  const heroBook = heroBooks[0]
   const topCategories = categories.filter((category) => category.category !== 'OTHER').slice(0, 8)
 
   return (
@@ -173,17 +156,21 @@ export default function HomePage() {
               <div className="hero-book hero-book--front">
                 <BookCover book={heroBooks[0]} />
               </div>
-              <div className="hero-float hero-float--match">
-                <span className="hero-float__icon"><Repeat2 size={16} /></span>
-                <span>
-                  <strong>Exchange matched</strong>
-                  <small>{categoryLabel(heroBooks[0]?.category)} · campus pickup</small>
-                </span>
-              </div>
-              <div className="hero-float hero-float--price">
-                <span>From</span>
-                <strong>{formatPrice(heroBooks[0]?.price || 249)}</strong>
-              </div>
+              {heroBook && (
+                <>
+                  <div className="hero-float hero-float--match">
+                    <span className="hero-float__icon"><Repeat2 size={16} /></span>
+                    <span>
+                      <strong>Exchange matched</strong>
+                      <small>{categoryLabel(heroBook.category)} · campus pickup</small>
+                    </span>
+                  </div>
+                  <div className="hero-float hero-float--price">
+                    <span>From</span>
+                    <strong>{formatPrice(heroBook.price)}</strong>
+                  </div>
+                </>
+              )}
             </div>
             <span className="hero__stamp" aria-hidden="true">
               <BookOpen size={18} /> Campus reads

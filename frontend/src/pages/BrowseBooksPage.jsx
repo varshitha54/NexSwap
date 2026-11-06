@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { bookApi } from '../api'
 import { getApiError } from '../api/client'
+import { useAuth } from '../context/AuthContext'
 import BookCard from '../components/BookCard'
 import EmptyState from '../components/EmptyState'
 import { CardSkeleton } from '../components/Loader'
@@ -28,6 +29,7 @@ const PAGE_SIZE = 12
 const filterKeys = ['q', 'category', 'listingType', 'condition', 'minPrice', 'maxPrice', 'sort', 'page']
 
 export default function BrowseBooksPage() {
+  const { isAuthenticated } = useAuth()
   const [searchParams, setSearchParams] = useSearchParams()
   const [data, setData] = useState({ content: [], page: 0, totalElements: 0, totalPages: 0 })
   const [loading, setLoading] = useState(true)
@@ -382,8 +384,15 @@ export default function BrowseBooksPage() {
 
           {!loading && !error && data.content.length > 0 && (
             <p className="catalogue-footnote">
-              Looking for something specific? <Link to="/requests">Check your exchange requests</Link>{' '}
-              or list a book to start a swap.
+              {isAuthenticated ? (
+                <>
+                  Looking for something specific? <Link to="/requests">Check your exchange requests</Link> or list a
+                  book to start a swap.
+                </>
+              ) : (
+                <>Looking for something specific? <Link to="/login">Sign in</Link> to request an exchange or list a
+                  book to start a swap.</>
+              )}
             </p>
           )}
         </section>

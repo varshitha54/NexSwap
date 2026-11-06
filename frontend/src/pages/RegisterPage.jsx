@@ -52,6 +52,7 @@ export default function RegisterPage() {
     const nextErrors = {}
     if (!form.name.trim()) nextErrors.name = 'Enter your full name.'
     if (!form.email.trim()) nextErrors.email = 'Enter your student email.'
+    if (form.email.trim() && !/^\S+@\S+\.\S+$/.test(form.email.trim())) nextErrors.email = 'Enter a valid email address.'
     if (!form.collegeName.trim()) nextErrors.collegeName = 'Enter your college name.'
     if (form.password.length < 8) nextErrors.password = 'Use at least 8 characters.'
     if (form.confirmPassword !== form.password) nextErrors.confirmPassword = 'Passwords do not match.'

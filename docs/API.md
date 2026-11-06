@@ -324,8 +324,9 @@ All category enum values are returned, including those with zero available books
 GET /api/books/{id}
 ```
 
-Returns the shared book shape. Hidden/reserved listings are still visible to their owner
-and to admins; other callers receive `404`.
+Returns the shared book shape. Hidden listings are only visible to their owner and to
+admins; other callers receive `404`. Reserved and exchanged listings stay visible so
+students can see that a book is temporarily or fully off the market.
 
 ### Get seller contact details
 
@@ -597,8 +598,8 @@ Authorization: Bearer <token>
 }
 ```
 
-`recentListings` contains up to 4 book objects; the request arrays contain complete
-exchange objects (up to 3 received and 2 sent for the dashboard view).
+`recentListings` contains up to 5 book objects; the request arrays contain complete
+exchange objects (up to 5 received and 5 sent for the dashboard view).
 
 ---
 

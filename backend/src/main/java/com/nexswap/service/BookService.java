@@ -39,6 +39,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class BookService {
 
+    /** Exchange states that actively reserve a book; deletion is blocked while a book is part of one. */
+    private static final List<ExchangeStatus> ACTIVE_EXCHANGE_STATUSES = List.of(ExchangeStatus.ACCEPTED);
+
     private final BookRepository bookRepository;
     private final ExchangeRequestRepository exchangeRequestRepository;
     private final CurrentUserService currentUserService;
@@ -160,7 +163,7 @@ public class BookService {
         User current = currentUserService.requireUser();
         Book book = findBook(id);
         requireOwnerOrAdmin(book, current);
-        if (exchangeRequestRepository.existsByBookIdAndStatus(id, ExchangeStatus.ACCEPTED)) {
+        if (exchangeRequestRepository.countBookInOpenExchanges(id, ACTIVE_EXCHANGE_STATUSES) > 0) {
             throw BusinessException.conflict("Complete the active exchange before deleting this listing.");
         }
         rejectPendingRequests(book);

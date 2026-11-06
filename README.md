@@ -171,6 +171,7 @@ reference, request bodies and sample responses are available in
 | GET | `/api/books/featured` | Public | Featured available books |
 | GET | `/api/books/categories` | Public | Categories with live counts |
 | GET | `/api/books/{id}` | Public | Book details |
+| PATCH | `/api/books/{id}/status` | Owner/Admin | Show or hide a listing |
 | GET | `/api/books/{id}/contact` | Authenticated | Seller contact details |
 | GET | `/api/books/my-listings` | Authenticated | The current student's listings |
 | POST/PUT/DELETE | `/api/books...` | Owner/Admin | Manage listings |
@@ -178,6 +179,7 @@ reference, request bodies and sample responses are available in
 | POST | `/api/exchanges` | Authenticated | Request an exchange or purchase |
 | GET | `/api/exchanges/received` | Authenticated | Requests received |
 | GET | `/api/exchanges/sent` | Authenticated | Requests sent |
+| GET | `/api/public/stats` | Public | Platform-wide counters for the marketing pages |
 | PATCH | `/api/exchanges/{id}/accept` | Owner | Accept a pending request |
 | PATCH | `/api/exchanges/{id}/reject` | Owner | Reject a pending request |
 | PATCH | `/api/exchanges/{id}/cancel` | Requester | Cancel a pending request |

@@ -22,4 +22,3 @@ app:
     name: ""
     email: ""
     password: ""
-  seed-demo-data: false
